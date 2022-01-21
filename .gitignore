@@ -3,6 +3,16 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# virtual env
+bot-env
+
+# cred files
+creds.py
+
+# databases
+dbs
+*.db
+
 # C extensions
 *.so
 
