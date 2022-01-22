@@ -7,7 +7,7 @@ from tools.embedtools import embed_builder
 
 
 
-class Moderation(commands.Cog):
+class Timeout(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -17,7 +17,7 @@ class Moderation(commands.Cog):
                     minutes: Option(int, "Miten pitkään käyttäjä on mutetettu minuuteissa", required=True),
                     days: Option(int, "Miten pitkään käyttäjä on mutetettu päivissä (ei pakollinen)", required=False, default=0),
                     reason: Option(str, "Syy miksi käyttäjä sai mutet", required=False)):
-        if ctx.author.guild_permissions.moderate_members:
+        if ctx.author.guild_permissions.timeout_members:
             await member.timeout_for(duration = timedelta(days=days, minutes=minutes), reason=reason)
             em = await embed_builder(ctx, "Mutetettu", f"{member} on mutetettu ajaksi {timedelta(days=days, minutes=minutes)}", image="https://i.kym-cdn.com/photos/images/newsfeed/002/012/359/610.jpg")
             await ctx.respond(embed=em)
@@ -27,7 +27,7 @@ class Moderation(commands.Cog):
     @slash_command()
     async def remove_timeout(self, ctx, member: Option(discord.Member, "Käyttäjä jolta mute otetaan pois", required=True),
                             reason: Option(str, "Miksi mute otetaan pois", required=False, default="Mute poistettu botilla")):
-        if ctx.author.guild_permissions.moderate_members:
+        if ctx.author.guild_permissions.timeout_members:
             if member.timed_out:
                 await member.remove_timeout(reason=reason)
                 em = await embed_builder(ctx, "Mute otettu pois", f"{member}:n mute otettu pois.", image="https://i.kym-cdn.com/photos/images/newsfeed/001/370/061/095.jpg")
@@ -39,4 +39,4 @@ class Moderation(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(Moderation(bot))
+    bot.add_cog(Timeout(bot))

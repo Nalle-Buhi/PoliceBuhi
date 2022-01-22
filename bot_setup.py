@@ -17,6 +17,8 @@ config_queries = ["""
 
 mod_queries = ["""
     CREATE TABLE IF NOT EXISTS warns (
+        warn_id integer primary key,
+        guild_id integer,
         user_id integer,
         giver_id integer,
         reason text,

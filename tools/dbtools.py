@@ -22,3 +22,18 @@ async def log_config_reader(guild_id, table):
         return enabled[0]
     else:
         return None
+
+async def insert_warn(guild_id, user_id, giver_id, reason, date):
+    con = sqlite3.connect("dbs/mod.db")
+    cur = con.cursor()
+    cur.execute("""INSERT INTO warns values (?,?,?,?,?,?)""", (None, guild_id, user_id, giver_id, reason, date))
+    con.commit()
+    con.close()
+
+async def list_warns(guild_id, user_id):
+    con = sqlite3.connect("dbs/mod.db")
+    cur = con.cursor()
+    cur.execute("""SELECT * FROM warns WHERE guild_id = ? AND user_id = ?""", (guild_id, user_id))
+    results = cur.fetchall()
+    return results
+    con.close()
