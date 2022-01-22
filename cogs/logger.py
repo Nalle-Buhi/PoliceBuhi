@@ -6,7 +6,7 @@ import discord.utils
 from tools.embedtools import embed_builder
 
 
-class Template(commands.Cog):
+class Logger(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -42,4 +42,4 @@ class Template(commands.Cog):
         
 
 def setup(bot):
-    bot.add_cog(Template(bot))
+    bot.add_cog(Logger(bot))
